@@ -1,0 +1,57 @@
+#            Animal
+#              ^
+#        ______|______
+#       |             |
+#     Perro          Gato
+
+def pedir_texto(mensaje):
+    while True:
+        valor = input(mensaje).strip()
+        if valor:
+            return valor
+        print("  No puede estar vacío, intenta de nuevo.")
+
+
+def pedir_entero(mensaje):
+    while True:
+        try:
+            return int(input(mensaje))
+        except ValueError:
+            print("  Escribe un número entero válido.")
+
+
+class Animal:
+    def __init__(self, nombre):
+        self.nombre = nombre
+
+    def hacer_sonido(self):
+        return "Algún sonido genérico"
+
+
+class Perro(Animal):
+    def hacer_sonido(self):
+        return "Guau guau"
+
+
+class Gato(Animal):
+    def hacer_sonido(self):
+        return "Miau"
+
+
+cantidad = pedir_entero("¿Cuántos animales quieres crear? ")
+animales = []
+
+for _ in range(cantidad):
+    tipo = pedir_texto("Tipo de animal (perro/gato): ").lower()
+    nombre = pedir_texto("Nombre del animal: ")
+    if tipo == "perro":
+        animales.append(Perro(nombre))
+    elif tipo == "gato":
+        animales.append(Gato(nombre))
+    else:
+        print("  Tipo no válido, se crea un animal genérico.")
+        animales.append(Animal(nombre))
+
+print()
+for a in animales:
+    print(f"{a.nombre} ({type(a).__name__}): {a.hacer_sonido()}")
